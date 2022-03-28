@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Script from 'next/script'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -13,43 +14,22 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <Script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></Script>
+        <div className="flex flex-col items-center justify-center max-w-[66%]">
+          <h1 className="text-9xl mb-24 font-black">CUNNYLIST</h1>
+          <span className="iconify" data-icon="twemoji:loudly-crying-face"></span>
+          <p className="text-lg text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eaque architecto itaque optio alias, molestias illo necessitatibus aut excepturi incidunt. Quasi at id illo cumque nostrum optio consequatur fuga culpa doloribus magnam atque obcaecati possimus neque incidunt dolor aspernatur necessitatibus est modi commodi, similique omnis aliquam quas ducimus. Laboriosam repudiandae, illum ab, doloribus enim ipsam unde officia autem dolorum rem reprehenderit eveniet molestiae sed velit dignissimos suscipit quam. Consequatur delectus quaerat neque doloribus voluptates inventore nulla dolor asperiores perferendis dolorem eaque fuga, at nobis enim ullam dolores! Quae, soluta corrupti? Id dolorem in consequatur minima ea obcaecati corrupti ratione necessitatibus.
+          </p>
+          {/* Username input */}
+          <div className="flex items-center justify-center mt-16 gap-4">
+            <input className="bg-white rounded-lg p-2 w-full" type="text" placeholder="Username" />
+            <div className="">
+              <a href="#" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                Button
+              </a>
+            </div>
+          </div>
         </div>
       </main>
 
