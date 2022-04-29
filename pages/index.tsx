@@ -37,6 +37,11 @@ const Home: NextPage = () => {
               placeholder="Username"
               className='m-2 p-2 border-2 border-gray-300 rounded'
               onChange={handleUsernameChange}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handleProceed()
+                }
+              }}
             />
             <button
               className='bg-[#b368e6] m-2 p-2 rounded'
