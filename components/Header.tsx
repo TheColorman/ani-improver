@@ -1,12 +1,16 @@
 import useStorage from "../lib/useStorage"
 import Link from "next/link"
 import Image from "next/image"
+import Head from "next/head"
 
 export default function Header() {
   const { getItem } = useStorage()
 
   return (
     <div className="items-center justify-between flex bg-[#2B2D42] p-6 fixed w-screen">
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Link href="/">
         <a className="flex items-center flex-shrink-0 text-white mr-6">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -15,20 +19,26 @@ export default function Header() {
           <span className="font-semibold text-xl tracking-tight">Ani Improver</span>
         </a>
       </Link>
-      <div className="flex items-center gap-2">
-        <p className="text-xl text-white">
-          {getItem("username")}
-        </p>
-        {getItem("username") && getItem("avatar") && (
-          <Image
-            src={getItem("avatar")}
-            width={40}
-            height={40}
-            className="rounded"
-            alt="avatar"
-          />
-        )}
-      </div>
+      {getItem("username") && (
+        <Link
+          href='/overview'
+        >
+          <a className="flex items-center gap-2">
+            <p className="text-xl text-white">
+              {getItem("username")}
+            </p>
+            {getItem("avatar") && (
+              <Image
+                src={getItem("avatar")}
+                width={40}
+                height={40}
+                className="rounded"
+                alt="avatar"
+              />
+            )}
+          </a>
+        </Link>
+      )}
     </div>
   )
 }
