@@ -1,4 +1,6 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Image from 'next/image'
 import Script from 'next/script'
@@ -6,6 +8,17 @@ import styles from '../styles/Home.module.css'
 import Header from '../components/Header'
 
 const Home: NextPage = () => {
+  const [username, setUsername] = useState<string>('')
+  const router = useRouter()
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value)
+  }
+  const handleProceed = () => {
+    sessionStorage.setItem('username', username)
+    router.push('/overview')
+  }
+
   return (
     <>
       <Header />
@@ -19,8 +32,18 @@ const Home: NextPage = () => {
             Earum est adipisci provident, minus porro facilis! Sit, excepturi quod!
           </div>
           <div className='flex justify-center items-center'>
-            <input type="text" placeholder="Username" className='m-2 p-2 border-2 border-black' />
-            <button className='bg-[#b368e6] m-2 p-2'>Proceed</button>
+            <input
+              type="text"
+              placeholder="Username"
+              className='m-2 p-2 border-2 border-black'
+              onChange={handleUsernameChange}
+            />
+            <button
+              className='bg-[#b368e6] m-2 p-2'
+              onClick={handleProceed}
+            >
+              Proceed
+            </button>
           </div>
         </div>
       </div>
