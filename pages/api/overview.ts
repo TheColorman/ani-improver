@@ -13,6 +13,8 @@ export default async function handler(
     return
   }
 
+  console.log("Getting data from Anilist");
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -55,5 +57,5 @@ export default async function handler(
   })
 
   const json = await response.json()
-  res.status(200).json(json)
+  res.status(200).json(json.data)
 }
