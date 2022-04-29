@@ -1,0 +1,10 @@
+.button-group {
+  @apply block aspect-square h-8 w-8 bg-[#fafafa];
+  @apply flex items-center justify-center;
+  @apply hover:cursor-pointer hover:bg-sky-600 hover:text-white transition-colors;
+}
+
+.button {
+  @apply aspect-square h-full bg-[#fafafa] rounded;
+  @apply hover:bg-sky-600 hover:text-white transition-colors;
+}
