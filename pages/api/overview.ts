@@ -51,7 +51,7 @@ export default async function handler(
         }
       `,
       variables: {
-        username: "Colorman",
+        username: username,
       }
     })
   })
