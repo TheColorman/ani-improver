@@ -34,7 +34,7 @@ const RedirectUser = () => (
 
 
 const Overview: NextPage = () => {
-  const { getItem, setItem, isBrowser } = useStorage()
+  const { getItem, setItem } = useStorage()
   const avatar = getItem('avatar')
   const username = getItem('username')
   const overviewDataString = getItem('overview')
@@ -54,8 +54,10 @@ const Overview: NextPage = () => {
   }
 
   useEffect(() => {
+    console.log(overviewDataString);
     // If overview data is not set, fetch it
     if (!overviewDataString) {
+      console.log("Fetching new data");
       (async () => {
         console.log("No data found");
         // Get overview data
