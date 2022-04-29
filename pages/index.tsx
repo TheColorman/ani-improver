@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useStorage from '../lib/useStorage'
 import Header from '../components/Header'
@@ -11,7 +11,15 @@ const Home: NextPage = () => {
   const [textIsFocused, setTextIsFocused] = useState<boolean>(true)
   const [previousUsername, setPreviousUsername] = useState<string>('')
   const router = useRouter()
-  const { setItem } = useStorage()
+  const { setItem, removeItem } = useStorage()
+
+  useEffect(() => {
+    // Remove previous data
+    console.log("Removing previous data");
+    removeItem('overview')
+    removeItem('username')
+    removeItem('avatar')
+  }, [])
 
   const handleUsernameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)
