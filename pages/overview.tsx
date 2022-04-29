@@ -32,7 +32,6 @@ const RedirectUser = () => (
   </>
 )
 
-
 const Overview: NextPage = () => {
   const { getItem, setItem } = useStorage()
   const avatar = getItem('avatar')
@@ -85,14 +84,12 @@ const Overview: NextPage = () => {
     const days = Math.floor((millis % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
     const hours = Math.floor((millis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((millis % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((millis % (1000 * 60)) / 1000)
     const timeStrings = [
       years > 0 ? `${years} year${years > 1 ? 's' : ''}` : '',
       months > 0 ? `${months} month${months > 1 ? 's' : ''}` : '',
       days > 0 ? `${days} day${days > 1 ? 's' : ''}` : '',
       hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : '',
       minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : '',
-      seconds > 0 ? `${seconds} second${seconds > 1 ? 's' : ''}` : '',
     ]
     return timeStrings.filter(str => str != '').join(', ')
   })
@@ -101,11 +98,15 @@ const Overview: NextPage = () => {
   const timeSinceCreationMili = (Date.now() - (overviewData?.User.createdAt ?? 0) * 1000)
   const timeSinceCreation = calculateTimeString(timeSinceCreationMili)
 
-  // Total anime completed
+  // User anime stats
   const completedAnime = overviewData?.User.statistics.anime.statuses.find(status => status.status === 'COMPLETED')?.count ?? 0
   const episodesComplete = overviewData?.User.statistics.anime.episodesWatched ?? 0
   const time = episodesComplete * 24 * 60 * 1000
   const timeWatched = calculateTimeString(time)
+
+  // Global anime stats
+  const totalAnimeOnAnilist = overviewData?.SiteStatistics.anime.edges[0].node.count ?? 0
+  const globalMeanScore = 80//* Unknown *//
 
   return (
     <>
@@ -144,11 +145,11 @@ const Overview: NextPage = () => {
             <div className="mt-4 grid grid-cols-2 gap-12">
               {/* Animes and episdes */}
               <div className='text-center'>
-                <p className='text-xl font-semibold'>You&apos;ve watched {completedAnime} anime</p>
-                <p className='text-base'>91% of all anime</p>
+                <p className='text-xl font-semibold'>{completedAnime} anime completed</p>
+                <p className='text-base'>{(completedAnime/totalAnimeOnAnilist*100).toPrecision(4)}% of all anime</p>
               </div>
               <div className="text-center">
-                <p className='text-xl font-semibold'>You&apos;ve watched {episodesComplete} episodes</p>
+                <p className='text-xl font-semibold'>{episodesComplete} episodes watched</p>
                 <p className='text-base'>{timeWatched}</p>
               </div>
             </div>
@@ -159,7 +160,11 @@ const Overview: NextPage = () => {
                 <div className='bg-blue-500 h-1 rounded absolute left-0' style={{
                   width: `${overviewData.User.statistics.anime.meanScore}%`
                 }} />
-                <div className='bg-blue-600 w-0.5 h-2 rounded absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2' />
+                {/* Global mean score */}
+                <div className='bg-blue-600 w-0.5 h-2 rounded absolute top-1/2 -translate-y-1/2' style={{
+                  // Width: 6rem
+                  left: `${globalMeanScore/100*6}rem`
+                }} />
               </div>
               <h2 className="text-lg">{overviewData.User.statistics.anime.meanScore}</h2>
             </div>
