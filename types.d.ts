@@ -34,25 +34,21 @@ type ApiOverview = {
         minutesWatched: number
         statuses: [
           {
-            status: {
-              count: number
-              status: "PLANNING"
-            }
+            count: number
+            status: "PLANNING"
+
           }, {
-            status: {
-              count: number
-              status: "COMPLETED"
-            }
+            count: number
+            status: "COMPLETED"
+
           }, {
-            status: {
-              count: number
-              status: "DROPPED"
-            }
+            count: number
+            status: "DROPPED"
+
           }, {
-            status: {
-              count: number
-              status: "CURRENT"
-            }
+            count: number
+            status: "CURRENT"
+
           }
         ]
       }
