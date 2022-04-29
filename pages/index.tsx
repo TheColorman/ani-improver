@@ -39,7 +39,7 @@ const Home: NextPage = () => {
     const data = await fetchUser(username)
     if (data === false || data.User === null) return
     setItem('username', data.User.name)
-    setItem('avatar', data.User.avatar.medium)
+    setItem('avatar', data.User.avatar.large)
     router.push('/overview')
   }
 
