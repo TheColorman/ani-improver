@@ -3,6 +3,7 @@ type UseStorageReturnValue = {
   getItem: (key: string, type?: StorageType) => string;
   setItem: (key: string, value: string, type?: StorageType) => boolean;
   removeItem: (key: string, type?: StorageType) => void;
+  isBrowser: boolean;
 };
 
 const useStorage = (): UseStorageReturnValue => {
@@ -31,6 +32,7 @@ const useStorage = (): UseStorageReturnValue => {
     getItem,
     setItem,
     removeItem,
+    isBrowser,
   };
 };
 
