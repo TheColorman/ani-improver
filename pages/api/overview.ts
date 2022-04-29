@@ -7,6 +7,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const username = req.query.username as string | undefined
+  if (!username) {
+    res.status(400).json({ error: 'username is required' })
+    return
+  }
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
