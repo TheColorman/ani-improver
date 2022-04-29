@@ -19,8 +19,8 @@ const Home: NextPage = () => {
             Earum est adipisci provident, minus porro facilis! Sit, excepturi quod!
           </div>
           <div className='flex justify-center items-center'>
-            <input type="text" placeholder="Username" className='m-2 p-2 border-2 border-black' />
-            <button className='bg-[#b368e6] m-2 p-2'>Proceed</button>
+            <input type="text" placeholder="Username" className='m-2 p-2 border-2 border-gray-300 rounded' />
+            <button className='bg-[#b368e6] m-2 p-2 rounded'>Proceed</button>
           </div>
         </div>
       </div>
