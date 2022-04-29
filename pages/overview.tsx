@@ -76,15 +76,14 @@ const Overview: NextPage = () => {
     return <RedirectUser />
   }
 
-  const timeSinceCreationMili = (Date.now() - (overviewData?.User.createdAt ?? 0) * 1000)
   // Create human readable string (years, months, days, hours, minutes, seconds)
-  const timeSinceCreation = (() => {
-    const years = Math.floor(timeSinceCreationMili / (1000 * 60 * 60 * 24 * 365))
-    const months = Math.floor((timeSinceCreationMili % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30))
-    const days = Math.floor((timeSinceCreationMili % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((timeSinceCreationMili % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((timeSinceCreationMili % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((timeSinceCreationMili % (1000 * 60)) / 1000)
+  const calculateTimeString = ((millis: number) => {
+    const years = Math.floor(millis / (1000 * 60 * 60 * 24 * 365))
+    const months = Math.floor((millis % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30))
+    const days = Math.floor((millis % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((millis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((millis % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((millis % (1000 * 60)) / 1000)
     const timeStrings = [
       years > 0 ? `${years} year${years > 1 ? 's' : ''}` : '',
       months > 0 ? `${months} month${months > 1 ? 's' : ''}` : '',
@@ -94,7 +93,17 @@ const Overview: NextPage = () => {
       seconds > 0 ? `${seconds} second${seconds > 1 ? 's' : ''}` : '',
     ]
     return timeStrings.filter(str => str != '').join(', ')
-  })()
+  })
+
+  // Time on Anilist
+  const timeSinceCreationMili = (Date.now() - (overviewData?.User.createdAt ?? 0) * 1000)
+  const timeSinceCreation = calculateTimeString(timeSinceCreationMili)
+
+  // Total anime completed
+  const completedAnime = overviewData?.User.statistics.anime.statuses.find(status => status.status === 'COMPLETED')?.count ?? 0
+  const episodesComplete = overviewData?.User.statistics.anime.episodesWatched ?? 0
+  const time = episodesComplete * 24 * 60 * 1000
+  const timeWatched = calculateTimeString(time)
 
   return (
     <>
@@ -105,14 +114,17 @@ const Overview: NextPage = () => {
         <Header />
         <Nav selected={"overview"} />
       </div>
-      <div className='flex flex-col absolute top-36 w-screen bg-[#e5ebf1]'>
-        {overviewData ? (
-          <div className='flex flex-row w-11/12 h-96 justify-center items-center gap-28 border-b-2 border-[#9dc1e0]'>
+      {overviewData ? (
+        <div className='flex flex-col items-center absolute top-36 w-screen bg-[#e5ebf1]'>
+          <div className='flex flex-row w-10/12 h-80 justify-center items-center gap-28 border-b-2 border-[#9dc1e0]'>
             <div className='flex flex-col justify-center text-center'>
-              <h2 className='text-xl'>Time on Anilist: {timeSinceCreation}</h2>
+              <h2 className='text-xl font-semibold'>Time on Anilist:</h2>
+              <h3 className='text-lg'>{timeSinceCreation}</h3>
               <a
                 href={`https://anilist.co/user/${getItem("username")}/`}
                 className="text-sky-500"
+                target="_blank"
+                rel="noreferrer"
               >
                 Go to profile
               </a>
@@ -125,15 +137,40 @@ const Overview: NextPage = () => {
               className='rounded'
             />
           </div>
-        ) : (
-          <div className='flex w-screen h-screen items-center justify-center'>
-            {/* Loading indicator */}
-            <div className='text-center'>
-              <h1 className='text-xl'>Loading...</h1>
+          <div className='mt-8 flex flex-col items-center w-11/12 justify-center'>
+            <h1 className="text-2xl">Summary</h1>
+            <div className="mt-4 grid grid-cols-2 gap-12">
+              {/* Animes and episdes */}
+              <div className='text-center'>
+                <p className='text-xl font-semibold'>You&apos;ve watched {completedAnime} anime</p>
+                <p className='text-base'>91% of all anime</p>
+              </div>
+              <div className="text-center">
+                <p className='text-xl font-semibold'>You&apos;ve watched {episodesComplete} episodes</p>
+                <p className='text-base'>{timeWatched}</p>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-col items-center text-center">
+              {/* Mean score */}
+              <h1 className="text-xl font-semibold">Mean score</h1>
+              <div className='bg-gray-400 w-24 h-1 rounded relative'>
+                <div className='bg-blue-500 h-1 rounded absolute left-0' style={{
+                  width: `${overviewData.User.statistics.anime.meanScore}%`
+                }} />
+                <div className='bg-blue-600 w-0.5 h-2 rounded absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2' />
+              </div>
+              <h2 className="text-lg">{overviewData.User.statistics.anime.meanScore}</h2>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className='flex w-screen h-screen items-center justify-center'>
+          {/* Loading indicator */}
+          <div className='text-center'>
+            <h1 className='text-xl'>Loading...</h1>
+          </div>
+        </div>
+      )}
     </>
   )
 }
