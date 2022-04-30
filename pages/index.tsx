@@ -19,6 +19,7 @@ const Home: NextPage = () => {
     removeItem('overview')
     removeItem('username')
     removeItem('avatar')
+    removeItem('yourlists')
   }, [])
 
   const handleUsernameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
