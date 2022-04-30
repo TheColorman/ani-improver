@@ -56,5 +56,55 @@ type ApiOverview = {
   }
 }
 
+type ApiYourlists = {
+  MediaListCollection: {
+    lists: [
+      {
+        entries: [
+          {
+            completedAt: {
+              year: number | null
+              month: number | null
+              day: number | null
+            }
+            createdAt: number
+            media: {
+              averageScore: number
+              id: number
+              meanScore: number
+              popularity: number
+              startDate: {
+                year: number
+                month: number
+                day: number
+              }
+              title: {
+                userPreferred: string
+              }
+              coverImage: {
+                large: string
+              }
+              episodes: number
+            }
+            progress: number
+            score: number
+            startedAt: {
+              year: number | null
+              month: number | null
+              day: number | null
+            }
+            updatedAt: number
+          }
+        ]
+        isCustomList: boolean
+        isSplitCompletedList: boolean
+        name: string
+        status: "CURRENT" | "PLANNING" | "COMPLETED" | "DROPPED" | null
+      }
+    ]
+  }
+}
+
 export type ApiUserResponse = ApiError | ApiUser
 export type ApiOverviewResponse = ApiError | ApiOverview
+export type ApiYourlistsResponse = ApiError | ApiYourlists
