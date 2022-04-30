@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function Nav({ selected }: { selected: string }) {
+export default function Nav({ selected }: { selected: "overview" | "stats" | "yourlists" | "createlist" }) {
     return (
         <div className="items-center justify-between flex-wrap bg-[#FBFBFB] absolute bottom-0 p-6 w-screen">
             <ul className="flex flex-col mt-4 md:flex-row md:space-x-16 md:mt-0 md:text-sm md:font-medium md:justify-center">
