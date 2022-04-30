@@ -41,7 +41,6 @@ const Overview: NextPage = () => {
 
   // Fetch data from API
   const fetchOverviewData = async (username: string) => {
-    console.log("Fetching new data");
     const data = (await fetch(`/api/overview?username=${username}`).then(res => res.json())) as ApiOverviewResponse
 
     if (("error" in data) || data.User == null) {
@@ -53,16 +52,12 @@ const Overview: NextPage = () => {
   }
 
   useEffect(() => {
-    console.log(overviewDataString);
     // If overview data is not set, fetch it
     if (!overviewDataString) {
-      console.log("Fetching new data");
       (async () => {
-        console.log("No data found");
         // Get overview data
         const success = await fetchOverviewData(username)
         if (!success) {
-          console.log("Failed to fetch data");
           return
         }
       })()
