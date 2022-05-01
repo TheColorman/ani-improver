@@ -147,7 +147,7 @@ const Home: NextPage = () => {
         <Header />
         <Nav selected={"yourlists"} />
       </div>
-      <div className='flex flex-col items-center absolute top-36 w-screen bg-[#e5ebf1]'>
+      <div className='flex flex-col items-center absolute top-36 w-full bg-[#e5ebf1]'>
         {/* Controls */}
         <div className='w-10/12 h-36 flex justify-between items-center'>
           {/* Left element */}
@@ -179,10 +179,11 @@ const Home: NextPage = () => {
           </div> */}
         </div>
         {/* List table */}
-        {yourlistsData ? (
+        {yourlistsData && (
           <div className='bg-[#fafafa] rounded w-10/12 relative my-8'>
             <h1 className="text-xl absolute left-4 -top-8">{selected ? selected[0] + selected.slice(1).toLowerCase() : listNames[0]}</h1>
             <DataGrid
+              className=''
               rows={rows.length > 0 ? rows : lists[listNames[0].toUpperCase()]}
               columns={columns}
               autoHeight
@@ -200,7 +201,8 @@ const Home: NextPage = () => {
               disableColumnMenu
             />
           </div>
-        ) : (
+        )}
+        {!yourlistsData && (
           <div className='flex w-screen h-screen items-center justify-center'>
             {/* Loading indicator */}
             <div className='text-center'>
