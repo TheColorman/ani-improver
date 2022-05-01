@@ -75,6 +75,5 @@ export default async function handler(
   })
 
   const json = await response.json()
-  console.log(json);
   res.status(200).json(json.data)
 }
