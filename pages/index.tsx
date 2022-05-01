@@ -56,13 +56,12 @@ const Home: NextPage = () => {
     <>
       <Header />
       <div className='flex justify-center items-center w-screen h-screen bg-[#e5ebf1]'>
-        <div className='flex-col justify-center items-center max-w-3xl text-center'>
+        <div className='flex-col justify-center items-center max-w-4xl text-center'>
           <div>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Possimus, fuga tempore deserunt eaque, accusantium, ea omnis ducimus modi obcaecati quibusdam saepe
-            eius optio debitis? Deserunt temporibus magnam quos eos quo blanditiis quia? Dicta, quod consequatur
-            perspiciatis debitis quisquam at maiores facere suscipit tempore nobis? Enim consectetur iusto nemo hic sint!
-            Earum est adipisci provident, minus porro facilis! Sit, excepturi quod!
+            Welcome to Ani Improver! This is the place to view all kinds of statistics about your anime list from AniList.
+            Here you can see the different lists you have, the amount of episodes you have watched and statistics about the anime you watch!
+            <br />
+            Ani Improver is using the AniList API to fetch data from AniList, and is not affiliated with AniList in any way.
           </div>
           <div className='flex justify-center items-center mt-6'>
             <div className='relative'>
