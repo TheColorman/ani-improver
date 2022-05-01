@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import useStorage from '../lib/useStorage'
 import { useState, useEffect } from 'react'
+import unixToRelative from '../lib/unixToRelative'
 
 const RedirectUser = () => (
   <>
@@ -72,32 +73,15 @@ const Overview: NextPage = () => {
     return <RedirectUser />
   }
 
-  // Create human readable string (years, months, days, hours, minutes, seconds)
-  const calculateTimeString = ((millis: number) => {
-    const years = Math.floor(millis / (1000 * 60 * 60 * 24 * 365))
-    const months = Math.floor((millis % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30))
-    const days = Math.floor((millis % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((millis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((millis % (1000 * 60 * 60)) / (1000 * 60))
-    const timeStrings = [
-      years > 0 ? `${years} year${years > 1 ? 's' : ''}` : '',
-      months > 0 ? `${months} month${months > 1 ? 's' : ''}` : '',
-      days > 0 ? `${days} day${days > 1 ? 's' : ''}` : '',
-      hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : '',
-      minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : '',
-    ]
-    return timeStrings.filter(str => str != '').join(', ')
-  })
-
   // Time on Anilist
   const timeSinceCreationMili = (Date.now() - (overviewData?.User.createdAt ?? 0) * 1000)
-  const timeSinceCreation = calculateTimeString(timeSinceCreationMili)
+  const timeSinceCreation = unixToRelative(timeSinceCreationMili)
 
   // User anime stats
   const completedAnime = overviewData?.User.statistics.anime.statuses.find(status => status.status === 'COMPLETED')?.count ?? 0
   const episodesComplete = overviewData?.User.statistics.anime.episodesWatched ?? 0
-  const time = episodesComplete * 24 * 60 * 1000
-  const timeWatched = calculateTimeString(time)
+  const time = (overviewData?.User.statistics.anime.minutesWatched ?? 0) * 60 * 1000
+  const timeWatched = unixToRelative(time)
 
   // Global anime stats
   const totalAnimeOnAnilist = overviewData?.SiteStatistics.anime.edges[0].node.count ?? 0
