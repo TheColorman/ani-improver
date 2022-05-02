@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import Nav from '../components/Nav'
-import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../styles/yourlists.module.css'
 import type { } from '@mui/x-data-grid/themeAugmentation';
@@ -10,30 +9,7 @@ import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbarCo
 import useStorage from '../lib/useStorage'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { ApiYourlists, ApiYourlistsResponse } from '../types'
-
-const RedirectUser = () => (
-  <>
-    <Head>
-      <title>Your lists | Not logged in</title>
-    </Head>
-    <div className='fixed w-screen h-36'>
-      <Header />
-      <Nav selected={"yourlists"} />
-    </div>
-    <div className="flex w-screen h-screen justify-center items-center bg-[#e5ebf1]">
-      <div className='text-center'>
-        <h1 className='text-xl'>No username provided</h1>
-        <Link
-          href='/'
-        >
-          <a className='text-lg text-sky-500 hover:underline'>
-            Go back
-          </a>
-        </Link>
-      </div>
-    </div>
-  </>
-)
+import RedirectUser from '../components/RedirectUser'
 
 const Home: NextPage = () => {
   const { getItem, setItem } = useStorage()
@@ -77,7 +53,7 @@ const Home: NextPage = () => {
 
   if (!username || !avatar) {
     // Redirect user to homepage
-    return <RedirectUser />
+    return <RedirectUser title='Your lists' page='yourlists' />
   }
 
   // Create data
@@ -126,7 +102,7 @@ const Home: NextPage = () => {
     { field: "updated", headerName: "Updated", description: "The date the you last updated the anime on this list.", type: "date", width: 110, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
     { field: "added", headerName: "Added", description: "The date the anime was added to your list.", type: "date", width: 90, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
     { field: "startDate", headerName: "Start date", description: "The date you started watching the anime.", type: "date", width: 120, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
-    { field: "completedDate", headerName: "Completed date", description: "The date you completed the anime.", type: "date" , width: 150, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
+    { field: "completedDate", headerName: "Completed date", description: "The date you completed the anime.", type: "date", width: 150, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
     { field: "releaseDate", headerName: "Release date", description: "The date the anime was released.", type: "date", width: 140, cellClassName: styles['center-cell'], renderCell: ({ value }: { value?: number }) => value ? new Date(value).toLocaleDateString() : "" },
     { field: "averageScore", headerName: "Average score", description: "The global average score of the anime.", type: "number", width: 140, cellClassName: styles['center-cell'] },
     { field: "meanScore", headerName: "Mean score", description: "The global mean score of the anime.", type: "number", width: 130, cellClassName: styles['center-cell'] },

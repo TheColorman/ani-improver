@@ -8,30 +8,7 @@ import Link from 'next/link'
 import useStorage from '../lib/useStorage'
 import { useState, useEffect } from 'react'
 import unixToRelative from '../lib/unixToRelative'
-
-const RedirectUser = () => (
-  <>
-    <Head>
-      <title>Overview | Not logged in</title>
-    </Head>
-    <div className='fixed w-screen h-36'>
-      <Header />
-      <Nav selected={"overview"} />
-    </div>
-    <div className="flex w-screen h-screen justify-center items-center bg-[#e5ebf1]">
-      <div className='text-center'>
-        <h1 className='text-xl'>No username provided</h1>
-        <Link
-          href='/'
-        >
-          <a className='text-lg text-sky-500 hover:underline'>
-            Go back
-          </a>
-        </Link>
-      </div>
-    </div>
-  </>
-)
+import RedirectUser from '../components/RedirectUser'
 
 const Overview: NextPage = () => {
   const { getItem, setItem } = useStorage()
@@ -70,7 +47,7 @@ const Overview: NextPage = () => {
 
   if (!username || !avatar) {
     // Redirect user to homepage
-    return <RedirectUser />
+    return <RedirectUser title='Overview' page='overview' />
   }
 
   // Time on Anilist
