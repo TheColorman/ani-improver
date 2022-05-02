@@ -480,7 +480,7 @@ const Home: NextPage = () => {
               <div className='ml-2'>
                 <h2 className='text-sm'>Random Plan to Watch anime</h2>
                 <a href={`https://anilist.co/anime/${randomToWatch?.id}`} target='_blank' rel='noreferrer' className='text-xl font-medium hover:text-sky-500 hover:cursor-pointer hover:underline'>{randomToWatch?.title ?? "No anime on Plan to Watch!"}</a>
-                <p className='text-lg'>{randomToWatch ? 'Randomly chosen anime from you Plan to Watch. Get watching!' : "There's no anime on to choose on your Plan to Watch!"}</p>
+                <p className='text-lg'>{randomToWatch ? 'Randomly chosen anime from you Plan to Watch. Get watching!' : "There's no anime on your Plan to Watch to choose!"}</p>
               </div>
             </div>
             <div className='rounded-lg bg-[#fafafa] flex h-36'>
