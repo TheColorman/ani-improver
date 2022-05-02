@@ -72,9 +72,9 @@ const Home: NextPage = () => {
     }
     return mostWatched
   })
-  // Random plan to watch anime
-  const planToWatch = statsAnime?.filter(anime => anime.status === "PLANNING")
-  const randomToWatch = planToWatch?.[Math.floor(Math.random() * planToWatch.length)]
+  // Random rewatch anime
+  const toRewatch = statsAnime?.filter(anime => anime.status === 'COMPLETED' && anime.score >= 8)
+  const randomRewatch = toRewatch?.[Math.floor(Math.random() * toRewatch?.length)]
   
   // Most underground series
   const mostUndergroundSeries = statsAnime?.reduce((mostUnderground, curr) => {
@@ -475,12 +475,12 @@ const Home: NextPage = () => {
             </div>
             <div className='rounded-lg bg-[#fafafa] flex h-36'>
               <div className='min-w-[102px] h-full'>
-                <Image className='rounded-l-lg' width={102} height={144} src={randomToWatch?.image ?? "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg"} alt="Thumbnail" />
+                <Image className='rounded-l-lg' width={102} height={144} src={randomRewatch?.image ?? "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg"} alt="Thumbnail" />
               </div>
               <div className='ml-2'>
-                <h2 className='text-sm'>Random Plan to Watch anime</h2>
-                <a href={`https://anilist.co/anime/${randomToWatch?.id}`} target='_blank' rel='noreferrer' className='text-xl font-medium hover:text-sky-500 hover:cursor-pointer hover:underline'>{randomToWatch?.title ?? "No anime on Plan to Watch!"}</a>
-                <p className='text-lg'>{randomToWatch ? 'Randomly chosen anime from you Plan to Watch. Get watching!' : "There's no anime on your Plan to Watch to choose!"}</p>
+                <h2 className='text-sm'>Random anime to rewatch</h2>
+                <a href={`https://anilist.co/anime/${randomRewatch?.id}`} target='_blank' rel='noreferrer' className='text-xl font-medium hover:text-sky-500 hover:cursor-pointer hover:underline'>{randomRewatch?.title ?? "No anime on Plan to Watch!"}</a>
+                <p className='text-lg'>{randomRewatch ? 'Randomly chosen completed anime for you to rewatch. Re-experience it!' : "There's no anime that fits the criteria for a rewatch!"}</p>
               </div>
             </div>
             <div className='rounded-lg bg-[#fafafa] flex h-36'>
